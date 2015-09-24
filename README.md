@@ -2,8 +2,8 @@
 
 El esquema de uso no puede ser más simple:
 
-- ![Click simple][2] Un click simple en el icono abrirá un Popup o pestaña donde podremos Agregar o Modificar un marcador, y que se cerrará automáticamente al Guardar
-- ![Doble click][3] Un doble click en el icono de la extensión abrirá una nueva pestaña con tu cuenta Google Bookmarks, donde podrás Gestionar tus marcadores
+![Click simple][2] Un click simple en el icono abrirá un Popup o pestaña donde podremos Agregar o Modificar un marcador, y que se cerrará automáticamente al Guardar
+![Doble click][3] Un doble click en el icono de la extensión abrirá una nueva pestaña con tu cuenta Google Bookmarks, donde podrás Gestionar tus marcadores
 
 ***
 ## ![Windows][10] COMPORTAMIENTO DE VENTANAS
@@ -22,10 +22,10 @@ Con la Guía visual desactivada, siempre se mostrará un Icono fijo, estés cone
 
 En cambio, si utilizas la Guía visual, verás en tu barra de marcadores iconos diferentes si:
 
-- ![No conectado][4] No estás conectado a tu cuenta de Google Bookmarks (Un Click para Autentificarte)
-- ![No se encuentra][5] La URL no se encuentra en marcadores (Un Click para Agregarla)
-- ![No etiquetas][6] La URL se encuentra en marcadores, sin etiquetas (Un Click para Editarla)
-- ![Con etiquetas][7] La URL se encuentra en marcadores, con X etiquetas (Un Click para Editarla)
+![No conectado][4] No estás conectado a tu cuenta de Google Bookmarks (Un Click para Autentificarte)
+![No se encuentra][5] La URL no se encuentra en marcadores (Un Click para Agregarla)
+![No etiquetas][6] La URL se encuentra en marcadores, sin etiquetas (Un Click para Editarla)
+![Con etiquetas][7] La URL se encuentra en marcadores, con X etiquetas (Un Click para Editarla)
 
 ![Con etiquetas][8] Si además activas las animaciones, el icono cambiará para llamar tu atención cuando haya cambios.
 
