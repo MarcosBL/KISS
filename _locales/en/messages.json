@@ -1,0 +1,143 @@
+{
+	"appName": {
+		"message": "KISS Google Bookmarks™"
+	},
+	"appDesc": {
+		"message": "Single click to Add or Edit a bookmark, double click to Manage bookmarks. You can also assign a keyboard shorcut. (ALT+B and ALT+M by default) Extension also shows if the bookmark is already stored"
+	},
+	"link_login": {
+		"message": "Login to your Google Bookmarks account"
+	},
+	"link_no_labels": {
+		"message": "Bookmark has no labels !"
+	},
+	"link_labels": {
+		"message": "LABELS:"
+	},
+	"link_no_title": {
+		"message": "Bookmark has no Name !"
+	},
+	"link_title": {
+		"message": "NAME:"
+	},
+	"link_no_description": {
+		"message": "Bookmark has no notes !"
+	},
+	"link_description": {
+		"message": "NOTES:"
+	},
+	"link_edit": {
+		"message": "Edit bookmark"
+	},
+	"link_add": {
+		"message": "Add bookmark"
+	},
+	"conf_shorcuts_title": {
+		"message": "Shorcuts"
+	},
+	"conf_shorcuts_add": {
+		"message": "Type your Shorcut to Add a Bookmark"
+	},
+	"conf_shorcuts_manage": {
+		"message": "Type your Shorcut to launch Bookmarks Manager"
+	},
+	"conf_shorcuts_info": {
+		"message": "You can use [ ALT, CRTL, SHIFT, META ] as modifiers, any of [ A-Z ] or [ 0-9 ] or any of the"
+	},
+	"conf_shorcuts_especial_keys": {
+		"message": "Special keys"
+	},
+	"conf_shorcuts_especial_keys_note_title": {
+		"message": "SPECIAL KEYS"
+	},
+	"conf_window": {
+		"message": "Window behaviour"
+	},
+	"conf_window_usepopup": {
+		"message": "Use a Popup to Add a new bookmark, instead of a new Tab"
+	},
+	"conf_magic": {
+		"message": "Automagic"
+	},
+	"conf_magic_use_magic": {
+		"message": "When adding a bookmark, automagically locate and fill labels and notes"
+	},
+	"conf_visual_guide": {
+		"message": "Visual Guide"
+	},
+	"conf_visual_guide_show": {
+		"message": "Show if the URL is already in your bookmarks"
+	},
+	"conf_visual_guide_animate": {
+		"message": "Use animations along with the Visual guide icon"
+	},
+	"conf_save_note": {
+		"message": "Be sure to save your changes after making changes. If you change the keyboard shortcuts, you'll need to reload the open pages for them work, or just restart your browser."
+	},
+	"conf_save_button": {
+		"message": "Save changes"
+	},
+	"conf_close_button": {
+		"message": "Close without saving"
+	},
+	"conf_info_message": {
+		"message": "Settings saved !"
+	},
+	"conf_help": {
+		"message": "Need help?"
+	},
+	"conf_help_usage": {
+		"message": "Usage can't be simpler:"
+	},
+	"conf_help_single_click": {
+		"message": "A single click will open a popup where you can Add or Edit a bookmark, and it will automatically close on Save"
+	},
+	"conf_help_double_click": {
+		"message": "A double click on the icon will open a new tab with your Google Bookmarks account, where you will be able to Manage your bookmarks"
+	},
+	"conf_help_visual_guide_inactive": {
+		"message": "With the Visual guide off, this icon will always be displayed:"
+	},
+	"conf_help_visual_guide_inactive_star": {
+		"message": "Fixed icon, connected or not, already bookmarked or not"
+	},
+	"conf_help_visual_guide_active": {
+		"message": "But if you use the visual guide, you will see these icons in your bar:"
+	},
+	"conf_help_visual_guide_active_disconnected": {
+		"message": "You are not connected to your Google account"
+	},
+	"conf_help_visual_guide_active_disconnected_click": {
+		"message": "Single click to Connect"
+	},
+	"conf_help_visual_guide_active_notfound": {
+		"message": "URL not found in bookmarks"
+	},
+	"conf_help_visual_guide_active_notfound_click": {
+		"message": "Single click to Add"
+	},
+	"conf_help_visual_guide_active_nolabels": {
+		"message": "URL is already in your bookmarks, with no labels set"
+	},
+	"conf_help_visual_guide_active_nolabels_click": {
+		"message": "Single click to Edit"
+	},
+	"conf_help_visual_guide_active_2labels": {
+		"message": "URL is already in your bookmarks, with two labels set"
+	},
+	"conf_help_visual_guide_active_2labels_click": {
+		"message": "Single click to Edit"
+	},
+	"conf_help_visual_guide_animations": {
+		"message": "If you also activate animations, the icon will animate to to get your attention when there are changes:"
+	},
+	"developed_by": {
+		"message": "Developed by"
+	},
+	"dedicated_to": {
+		"message": "Dedicated to"
+	},
+	"dedicated_why": {
+		"message": "for more reasons than can fit in this footer."
+	}
+}

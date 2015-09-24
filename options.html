@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>KISS Google Bookmarks™</title>
+<link rel="stylesheet" type="text/css" href="/css/options.css" />
+<script type="text/javascript" src="/js/functions.js"></script>
+<script type="text/javascript" src="/js/settings.js"></script>
+</head>
+<body onload="init_options()">
+<form onsubmit="return false;">
+  <div id="body-container">
+    <div id="header">
+      <h1>KISS Google Bookmarks™</h1>
+	<img id="logo" src="img/icon.png"/>
+    </div>
+    <div class="extension-template">
+      <div class="extension-header"><img src='img/guide_shorcuts.png'> <span class='t' id='conf_shorcuts_title'>Atajos de teclado</span></div>
+      <div class="extension-options">
+        <dl>
+          <dt><label class='t' id='conf_shorcuts_add' for="shortcut_key_add">Atajo de teclado para Añadir marcador</label>:</dt>
+          <dd><input type="text" id="shortcut_key_add" /></dd>
+          <dt><label class='t' id='conf_shorcuts_manage' for="shortcut_key_manage">Atajo de teclado para Gestionar marcadores</label>:</dt>
+          <dd><input type="text" id="shortcut_key_manage" /></dd>
+        </dl>
+		<p><span class='t' id='conf_shorcuts_info'>Puedes utilizar como modificadores [ ALT, CRTL, SHIFT, META ] y como teclas, cualquiera de [ A-Z ] o [ 0-9 ] o alguna de las</span> <a href='javascript:toggle("specials");return false;' class='t' id='conf_shorcuts_especial_keys'>teclas especiales</a></p>
+		<div id="specials" class="note" style="display:none;">
+			<p><strong class='t' id='conf_shorcuts_especial_keys_note_title'>TECLAS ESPECIALES:</strong></p>
+			<ul>
+				<li>ESC, TAB, SPACE, RETURN, ENTER, BACKSPACE</li>
+				<li>SCROLL, SCROLL_LOCK, CAPS, CAPS_LOCK, NUM, NUM_LOCK</li>
+				<li>PAUSE, BREAK, INSERT, HOME, DELETE, END, PAGE_UP, PAGE_DOWN</li>
+				<li>LEFT, UP, RIGHT, DOWN</li>
+				<li>F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12</li>
+			</ul>
+		</div>
+      </div>
+    </div>
+	<div class="extension-template">
+      <div class="extension-header"><img src='img/guide_tab.gif'> <span class='t' id='conf_window'>Comportamiento de ventanas</span></div>
+      <div class="extension-options">
+        <dl>
+          <dt><label class='t' id='conf_window_usepopup' for="popup_on_add">Añadir marcador en un Popup en lugar de Pestaña</label>:</dt>
+          <dd><input id="popup_on_add" type="checkbox" /></dd>
+        </dl>
+      </div>
+    </div>
+	<div class="extension-template">
+      <div class="extension-header"><img src='img/guide_tab.gif'> <span class='t' id='conf_magic'>Automagia</span></div>
+      <div class="extension-options">
+        <dl>
+          <dt><label class='t' id='conf_magic_use_magic' for="use_magic">Rellenar automágicamente etiquetas y notas</label>:</dt>
+          <dd><input id="use_magic" type="checkbox" /></dd>
+        </dl>
+      </div>
+    </div>
+	<div class="extension-template">
+      <div class="extension-header"><img src='img/guide_tags.gif'> <span class='t' id='conf_visual_guide'>Guía visual</span>:</div>
+      <div class="extension-options">
+        <dl>
+          <dt><label for="visual_guide" class='t' id='conf_visual_guide_show'>Mostrar si la URL ya está en marcadores (más lento)</label></dt>
+          <dd><input id="visual_guide" type="checkbox" onclick="show_hide_animations();" /></dd>
+        </dl>
+        <dl id='visual_animations_container'>
+          <dt><label class='t' id='conf_visual_guide_animate' for="visual_animations">Utilizar animaciones con la Guía visual activa</label></dt>
+          <dd><input id="visual_animations" type="checkbox" /></dd>
+        </dl>
+      </div>
+    </div>
+    <p id='conf_save_note' class='note t'>
+      Asegúrate de guardar los cambios tras realizar modificaciones. Si cambias los atajos de teclado, tendrás que recargar las páginas abiertas para que funcionen, o bien reiniciar el navegador.
+    </p>
+    <div id="extension-footer">
+      <span id="conf_info_message" class='t'>¡Opciones guardadas!</span>
+      <button id="conf_save_button" class='t' onclick="save_options()">Guardar</button>
+      <button id="conf_close_button" class='t' onclick="close_window()">Cerrar</button>
+    </div>
+	<div class="extension-template">
+      <div class="extension-header" style="cursor:pointer" onclick='javascript:toggle("help");'><img src='img/guide_help.gif'> <span class='t' id='conf_help'>¿Necesitas ayuda?</span></div>
+      <div class="extension-options" id="help" style="display:none;">
+		<ul class="features">
+			<li id='conf_help_usage' class='t'>El esquema de uso no puede ser más simple:</li>
+			<li><img src='img/guide_click.gif'> <span id='conf_help_single_click' class='t'>Un click simple abrirá un Popup o pestaña donde podrás Agregar o Modificar un marcador, y que se cerrará automáticamente al guardar</span></li>
+			<li><img src='img/guide_dblclick.gif'> <span id='conf_help_double_click' class='t'>Un doble click en el icono de la extensión abrirá una nueva pestaña con tu cuenta Google Bookmarks, donde podrás Gestionar tus marcadores</span></li>
+			<li id='conf_help_visual_guide_inactive' class='t'>Con la Guía visual desactivada, siempre se mostrará este icono:</li>
+			<li><img src='img/guide_noguide.gif'> <span id='conf_help_visual_guide_inactive_star' class='t'>Icono fijo, estés conectados o no, exista el marcador o no</span></li>
+			<li id='conf_help_visual_guide_active' class='t'>En cambio, si utilizamos la Guía visual, verás en tu barra de marcadores estos iconos:</li>
+			<li><img src='img/guide_logedout.gif'> <span id='conf_help_visual_guide_active_disconnected' class='t'>No estás conectado a tu cuenta de Google Bookmarks</span> <span id='conf_help_visual_guide_active_disconnected_click' class='t grey'>Click para Autentificarte</span></li>
+			<li><img src='img/guide_nourl.gif'> <span id='conf_help_visual_guide_active_notfound' class='t'>La URL no se encuentra en marcadores</span> <span id='conf_help_visual_guide_active_notfound_click' class='t grey'>Click para Agregarla</span></li>
+			<li><img src='img/guide_notags.gif'> <span id='conf_help_visual_guide_active_nolabels' class='t'>La URL se encuentra en marcadores, sin etiquetas</span> <span id='conf_help_visual_guide_active_nolabels_click' class='t grey'>Click para Editarla</span></li>
+			<li><img src='img/guide_tags.gif'> <span id='conf_help_visual_guide_active_2labels' class='t'>La URL se encuentra en marcadores, con dos etiquetas</span> <span id='conf_help_visual_guide_active_2labels_click' class='t grey'>Click para Editarla</span></li>
+			<li id='conf_help_visual_guide_animations' class='t'>Si además activas las animaciones, el icono cambiará para llamar tu atención cuando haya cambios:</li>
+			<li>
+			<video autoplay="autoplay" loop="loop">
+			  <source src="img/video.mp4" type="video/mp4" />
+			</video>
+			</li>
+		</ul>
+      </div>
+    </div>
+	<div id="credits">
+      <span id='developed_by' class='t'>Desarrollada por</span> <a target="_blank" href="http://twitter.com/marcosbl">MarcosBL</a>. <span id='dedicated_to' class='t'>Dedicada a</span> <a target="_blank" href="http://twitter.com/nosoylola">Lola</a> <span id='dedicated_why' class='t'>por más motivos de los que caben en este pie de página</span>.
+    </div>
+  </div>
+  </form>
+</body>
+</html>

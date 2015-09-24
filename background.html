@@ -1,0 +1,446 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+<script type="text/javascript" src="/js/functions.js"></script>
+<script type="text/javascript" src="/js/settings.js"></script>
+<script type="text/javascript">
+// Variables
+	var lastTime = new Date().getTime();
+	var isInManage = false;
+	var delayTime = 500;
+	var bkg = chrome.extension.getBackgroundPage();
+	var badge_char = "M";
+	var animationFrames = 36;
+	var animationSpeed = 10;
+	var canvas;
+	var canvasContext;
+	var loggedInImage;
+	var requestTimeout = 1000 * 2;
+	var rotation = 0;
+	var bookmarkPresence = "-";
+	var labels = "";
+	var description = "";
+	var title = "";
+
+// Control del Omnobox / Omnibox control
+
+	var currentRequest = null;
+
+	// Inicio de búsqueda / Search start
+	
+	chrome.omnibox.onInputStarted.addListener(function() {
+		updateDefaultSuggestion('');
+	});
+
+	// Rellenamos la opción por defecto del Omnibox a tiempo real / Real time update of Omnibox default option
+	
+	function updateDefaultSuggestion(text) {
+		var isLabel = /^label:/.test(text);
+		var isPlaintext = (text.length && !isLabel);
+		var description = '<match><url>Buscar:</url></match><dim> [</dim>';
+		description += isPlaintext ? ('<match>' + text + '</match>') : 'texto';
+		description += '<dim> | </dim>';
+		description += isLabel ? ('<match>' + text + '</match>') : 'label:';
+		description += '<dim> ]</dim>';
+		chrome.omnibox.setDefaultSuggestion({
+			description: description
+		});
+	}
+	
+	// Búsqueda cancelada / Cancelled search
+	
+	chrome.omnibox.onInputCancelled.addListener(function() {
+		resetDefaultSuggestion();
+	});
+
+	// Volvemos a las sugerencias por defecto / Back to default suggestion text
+	
+	function resetDefaultSuggestion() {
+		chrome.omnibox.setDefaultSuggestion({
+		description: '<url><match>Buscar:</match></url> Buscar en Google Bookmarks'
+		});
+	}
+	
+	// Ante una petición, rellenamos el Omnibox con los resultados / On demand, fill the Omnibox with results
+	
+	chrome.omnibox.onInputChanged.addListener(
+		function(text, suggest) {
+			if (currentRequest != null) {
+				currentRequest.onreadystatechange = null;
+				currentRequest.abort();
+				currentRequest = null;
+			}
+			updateDefaultSuggestion(text);
+			if (text == '')	return;
+			currentRequest = search(text, function(xml) {
+				var results = [];
+				var entries = xml.getElementsByTagName("item");
+				for (var i = 0, entry; i < 5 && (entry = entries[i]); i++) {
+					var title = entry.getElementsByTagName('title')[0].textContent;
+					var url = entry.getElementsByTagName('link')[0].textContent;
+					title = '<url>' + title.replace(/&/g, "&amp;") + '</url> ' + url.replace(/&/g, "&amp;")
+					results.push({
+					  content: "-> " + url,
+					  description: title
+					});
+				}
+				suggest(results);
+			});
+		}
+	);
+	
+	// Función de búsqueda remota / Remote search function
+
+	function search(query, callback) {
+		var url = "https://www.google.com/bookmarks/find?output=rss&q=" + encodeURIComponent(query);
+		var req = new XMLHttpRequest();
+		req.open("GET", url, true);
+		req.onreadystatechange = function() {
+			if (req.readyState == 4) {
+				callback(req.responseXML);
+			}
+		}
+		req.send(null);
+		return req;
+	}
+
+	// Al seleccionar una opción, o buscar / When user selects an option, or search
+
+	chrome.omnibox.onInputEntered.addListener(function(text) {
+		if (/^-> /.test(text)) {
+			var chunks = text.split('-> ');
+			navigate(chunks[1]);
+		} else {
+			navigate("https://www.google.com/bookmarks/find?q=" + text);
+		}
+	});	
+	
+	// Función auxiliar de navegación / Aux navigation function
+
+	function navigate(url) {
+	  chrome.tabs.getSelected(null, function(tab) {
+		chrome.tabs.update(tab.id, {url: url});
+	  });
+	}
+
+// Inicialización / Let's rock
+
+	function init() {
+		resetDefaultSuggestion();
+		
+		canvas = document.getElementById('canvas');
+		loggedInImage = document.getElementById('logged_in');
+		canvasContext = canvas.getContext('2d');
+
+		chrome.browserAction.setBadgeBackgroundColor({color:[208, 0, 24, 255]});
+		chrome.browserAction.setIcon({path: "img/logged.png"});
+
+		startRequest();
+	}
+
+// Pulsación del icono / Icon click
+
+	chrome.browserAction.onClicked.addListener(function(tab) {
+		var currentTime = new Date().getTime();
+		if (currentTime - lastTime > delayTime) {
+			isInManage = false;
+			setTimeout(function() {
+				if (isInManage) return;
+				_gaq.push(['_trackEvent', 'kiss_click', 'clicked']);
+				add(tab);
+			}, 500);
+		} else {
+			isInManage = true;
+			_gaq.push(['_trackEvent', 'kiss_manage', 'clicked']);
+			manage();
+		}
+		lastTime = currentTime;
+	});
+
+// Gestión de ventanas / Popups and windows
+
+	function add(tab) {
+		chrome.tabs.sendRequest(tab.id, {action: "getDOM"}, function(response) {
+			var c = encodeURIComponent;
+			if (!bkg.settings.UseMagic) { response.info.labels = ""; response.info.selection=""; }
+			if (bkg.settings.popupOnAdd) 
+				chrome.windows.create({ url: "http://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk=" + c(tab.url) + "&title=" + c(tab.title) + "&labels=" + c(response.info.labels) + "&annotation=" + c(response.info.selection), type: "popup", height: 500, width: 550});
+			else 
+				chrome.tabs.create({url:"http://www.google.com/bookmarks/mark?op=edit&output=popup&bkmk=" + c(tab.url) + "&title=" + c(tab.title) + "&labels=" + c(response.info.labels) + "&annotation=" + c(response.info.selection) });
+		});
+	}
+
+	function manage() {
+		chrome.tabs.create({url:"http://www.google.com/bookmarks/"});
+	}
+
+  // Eventos / Events
+
+	chrome.extension.onRequest.addListener(
+		function(request, sender, sendResponse) {
+			// Atajos de teclado / Shorcuts
+			if (request.method == "getShortcutKey")
+				sendResponse({
+					add: bkg.settings.shortcutKeyAdd,
+					manage: bkg.settings.shortcutKeyManage
+				})
+			else
+			{
+				if (request.command == "add") 
+					chrome.tabs.getSelected(null, add);
+				else 
+				{
+					if (request.command == "manage") manage();
+					sendResponse({});
+				}
+			}
+		}
+	);
+   
+	function eventBody(tabId, objectTabFired){
+		if (objectTabFired.url) {
+			checkBookmarkPresence(
+				function(count) {
+					updateBookmarkPresence(count);
+				},
+				function() {
+					showLoggedOut();
+				},
+				objectTabFired.url);
+		}
+	}
+
+	chrome.tabs.onSelectionChanged.addListener(function(tabId, windowId) {
+		chrome.tabs.get(tabId, function(tab) {
+			eventBody(tabId,tab);
+		});
+	});
+
+	chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+		eventBody(tabId,changeInfo);
+		// Fix for Chrome bug where Google Bookmarks window.close() stopped working
+		if(changeInfo.status == "complete") {
+			var theurl = tab.url;
+			if ((theurl.indexOf("btnA") != -1) && (theurl.indexOf("google.com/bookmarks") != -1)) {
+				chrome.tabs.remove(tabId);
+				chrome.tabs.getSelected(null,function(tab) {
+					eventBody(null,tab);
+				});
+			}
+		}
+	});
+	
+	chrome.windows.onRemoved.addListener(function(windowId) {
+		chrome.tabs.getSelected(null,function(tab) {
+			eventBody(null,tab);
+		});
+	});
+	
+// Comprobaciones de red / Ajax stuff
+
+	function getGoobleBookmarksUrl() {
+		return "http://www.google.com/bookmarks/";
+	}
+
+	function getFeedUrl(currenturl) {
+		var url = getGoobleBookmarksUrl();
+		var domain = "";
+		if (currenturl){
+			domain = currenturl.replace(new RegExp("^http[s]?:\/\/", "i"), "");
+			domain = domain.substring(0, domain.indexOf('/'));
+		}
+		return url + "find?output=rss&q="+domain;
+	}
+
+	function startRequest() {
+		checkBookmarkPresence(
+			function(presence) {
+				updateBookmarkPresence(presence);
+			},
+			function() {
+				showLoggedOut();
+			}
+		);
+	}
+	
+	function checkBookmarkPresence(onSuccess, onError, currenturl) {
+		if (bkg.settings.VisualGuide) {
+			var xhr = new XMLHttpRequest();
+			var abortTimerId = window.setTimeout(function() {
+				xhr.abort();
+			}, requestTimeout);
+
+			function handleSuccess(count) {	if (onSuccess) onSuccess(count); }
+			function handleError() { if (onError) onError(); }
+			try {
+				xhr.onreadystatechange = function(){
+				if (xhr.readyState != 4) return;
+				if (xhr.responseXML) {
+					var xmlDoc = xhr.responseXML;
+					var linkSet = xmlDoc.evaluate("/rss/channel/item/link",
+						xmlDoc, gbookNSResolver, XPathResult.ANY_TYPE, null);
+					var linkNode = linkSet.iterateNext();
+					var found = false;	
+					while( linkNode ) {
+						if (linkNode && linkNode.textContent == currenturl){
+							title = linkNode.parentNode.getElementsByTagName('bkmk_title');
+							if (title.length == 0) 
+								title = chrome.i18n.getMessage("link_no_title");
+								else 
+								title = title[0].childNodes[0].nodeValue;
+							description = linkNode.parentNode.getElementsByTagName('bkmk_annotation');
+							if (description.length == 0) 
+								description = chrome.i18n.getMessage("link_no_description");
+								else 
+								description = description[0].childNodes[0].nodeValue;
+							var auxLabelsArray = linkNode.parentNode.getElementsByTagName('bkmk_label');
+							labels = "";
+							if (auxLabelsArray.length == 0) {
+								badge_char = "0";
+								labels = chrome.i18n.getMessage("link_no_labels");
+							}
+							else
+							{
+								badge_char = "" + auxLabelsArray.length;
+								for (var j = 0; j < auxLabelsArray.length; j++){
+									labels = labels + (auxLabelsArray[j].childNodes[0].nodeValue) + ", " ;
+								}
+								labels = labels.substring(0, labels.length-2);
+							}
+							found = true;
+							break;
+						}
+						linkNode = linkSet.iterateNext();
+					}
+					if (found == true) {
+						handleSuccess(badge_char);
+						return;
+					} else if (found == false) {
+						handleSuccess("");
+						return;
+					}
+				}
+				handleError();
+			}
+
+			xhr.onerror = function(error) { handleError(); }
+			xhr.open("GET", getFeedUrl(currenturl), true);
+			xhr.send(null);
+			} catch(e) {
+				console.error("exception: " + e);
+				handleError();
+			}
+		}
+		else
+		{
+			chrome.browserAction.setIcon({path:"img/icon_16.png"});
+		}
+	}
+
+	function gbookNSResolver(prefix) {
+		if(prefix == 'smh') return 'http://www.google.com/history/';
+		if(prefix == 'recommend') return 'http://www.google.com/history/items';
+	}
+
+// Animaciones / User Interface
+
+	function updateBookmarkPresence(presence) {
+		if (bookmarkPresence != presence) {
+			animateFlip();
+		}
+		else
+		{
+			drawIconAtRotation();
+		}
+		bookmarkPresence = presence;
+		if (bookmarkPresence == badge_char){
+			$("logged_in").src = "img/icon_16.png";
+			chrome.browserAction.setTitle({
+				title: chrome.i18n.getMessage("link_edit") + "\n\n" + chrome.i18n.getMessage("link_title") + " " + title + "\n" + chrome.i18n.getMessage("link_description") + " " + description + "\n" + chrome.i18n.getMessage("link_labels") + " " + labels
+			});
+		}
+		else {
+			$("logged_in").src = "img/logged.png";
+			chrome.browserAction.setTitle({
+				title: chrome.i18n.getMessage("link_add") + " / " + chrome.i18n.getMessage("link_edit")
+			});
+		}
+	}
+
+	function ease(x) {
+		return (1-Math.sin(Math.PI/2+x*Math.PI))/2;
+	}
+
+	function animateFlip() {
+		rotation += 1/animationFrames;
+		if (bkg.settings.VisualAnimations) {
+			drawIconAtRotation();
+		}
+		if (rotation <= 1) {
+			setTimeout("animateFlip()", animationSpeed);
+		}
+		else {
+			rotation = 0;
+			drawIconAtRotation();
+			chrome.browserAction.setBadgeText({
+				text: bookmarkPresence == badge_char ? bookmarkPresence : ""
+			});
+			if (badge_char=="0") {
+				chrome.browserAction.setBadgeBackgroundColor({color:[208, 0, 24, 255]});
+			}
+			else
+			{
+				chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 24, 255]});
+			}
+		}
+	}
+
+	function showLoggedOut() {
+		bookmarkPresence = "";
+		chrome.browserAction.setTitle({
+			title: chrome.i18n.getMessage("link_login")
+		});
+		chrome.browserAction.setIcon({path:"img/loggedout.png"});
+		chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
+		chrome.browserAction.setBadgeText({text:""});
+		bookmarkPresence = "-";
+	}
+
+	function drawIconAtRotation() {
+		canvasContext.save();
+		canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+		canvasContext.translate(
+			Math.ceil(canvas.width/2),
+			Math.ceil(canvas.height/2));
+			canvasContext.rotate(2*Math.PI*ease(rotation));
+			canvasContext.drawImage(loggedInImage,
+			-Math.ceil(canvas.width/2),
+			-Math.ceil(canvas.height/2));
+		canvasContext.restore();
+		chrome.browserAction.setIcon({imageData:canvasContext.getImageData(0, 0, canvas.width,canvas.height)});
+	}
+	function drawIcon() {
+		chrome.browserAction.setIcon({imageData:canvasContext.getImageData(0, 0, canvas.width,canvas.height)});
+	}
+
+</script>
+</head>
+<body onload="init()">
+<script type="text/javascript">
+// Analytics
+
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-28465359-1']);
+	_gaq.push(['_trackEvent', 'kiss_user', 'load']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = 'https://ssl.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+</script>
+<img id="logged_in" src="img/logged.png">
+<canvas id="canvas" width="16" height="16">
+</body>
+</html>

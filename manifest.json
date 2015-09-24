@@ -1,0 +1,26 @@
+{
+   "name": "__MSG_appName__",
+   "description": "__MSG_appDesc__",
+   "options_page": "options.html",
+   "default_locale": "es",
+   "permissions": [ "tabs", "contextMenus", "notifications", "http://*/*", "https://*/*" ],
+   "background_page": "background.html",
+   "browser_action": {
+      "default_icon": "img/icon.png",
+      "default_title": "KISS Google Bookmarks™\n\nUn click a\u00F1ade un marcador.\nDoble click para gestionar marcadores."
+   },
+   "omnibox": { "keyword" : "kb" },
+   "content_scripts": [ {
+      "all_frames": false,
+      "js": [ "js/shortcut.js", "js/settings.js", "js/content.js" ],
+      "matches": [ "http://*/*", "https://*/*", "ftp://*/*" ],
+      "run_at": "document_start"
+   } ],
+   "icons": {
+      "128": "img/icon.png",
+      "48": "img/icon_48.png",
+      "16": "img/icon_16.png"
+   },
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "1.3"
+}

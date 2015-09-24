@@ -1,0 +1,143 @@
+{
+	"appName": {
+		"message": "KISS Google Bookmarks™"
+	},
+	"appDesc": {
+		"message": "Un click añade o modifica un marcador, doble click para gestionar los marcadores. También puedes asignar un atajo de teclado si lo prefieres. (ALT+B y ALT+M por defecto) Además, la extensión muestra si el marcador ya está añadido."
+	},
+	"link_login": {
+		"message": "Accede a tu cuenta de Google Bookmarks"
+	},
+	"link_no_labels": {
+		"message": "¡ Sin etiquetas !"
+	},
+	"link_labels": {
+		"message": "ETIQUETAS:"
+	},
+	"link_no_title": {
+		"message": "¡ Sin nombre !"
+	},
+	"link_title": {
+		"message": "NOMBRE:"
+	},
+	"link_no_description": {
+		"message": "¡ Sin notas !"
+	},
+	"link_description": {
+		"message": "NOTAS:"
+	},
+	"link_edit": {
+		"message": "Modificar marcador"
+	},
+	"link_add": {
+		"message": "Añadir marcador"
+	},
+	"conf_shorcuts_title": {
+		"message": "Atajos de teclado"
+	},
+	"conf_shorcuts_add": {
+		"message": "Atajo de teclado para Añadir marcador"
+	},
+	"conf_shorcuts_manage": {
+		"message": "Atajo de teclado para Gestionar marcadores"
+	},
+	"conf_shorcuts_info": {
+		"message": "Puedes utilizar como modificadores [ ALT, CRTL, SHIFT, META ] y como teclas, cualquiera de [ A-Z ] o [ 0-9 ] o alguna de las"
+	},
+	"conf_shorcuts_especial_keys": {
+		"message": "Teclas especiales"
+	},
+	"conf_shorcuts_especial_keys_note_title": {
+		"message": "TECLAS ESPECIALES"
+	},
+	"conf_window": {
+		"message": "Comportamiento de ventanas"
+	},
+	"conf_window_usepopup": {
+		"message": "Añadir marcador en un Popup en lugar de Pestaña"
+	},
+	"conf_magic": {
+		"message": "Automagia"
+	},
+	"conf_magic_use_magic": {
+		"message": "Al añadir un marcador, calcular y rellenar etiquetas y notas"
+	},
+	"conf_visual_guide": {
+		"message": "Guía visual"
+	},
+	"conf_visual_guide_show": {
+		"message": "Mostrar si la URL ya está en marcadores (un poco más lento)"
+	},
+	"conf_visual_guide_animate": {
+		"message": "Utilizar animaciones de icono con la Guía visual activa"
+	},
+	"conf_save_note": {
+		"message": "Asegúrate de guardar los cambios tras realizar modificaciones. Si cambias los atajos de teclado, tendrás que recargar las páginas abiertas para que funcionen, o bien reiniciar el navegador."
+	},
+	"conf_save_button": {
+		"message": "Guardar cambios"
+	},
+	"conf_close_button": {
+		"message": "Cerrar sin guardar"
+	},
+	"conf_info_message": {
+		"message": "¡ Opciones guardadas !"
+	},
+	"conf_help": {
+		"message": "¿Necesitas ayuda?"
+	},
+	"conf_help_usage": {
+		"message": "El esquema de uso no puede ser más simple:"
+	},
+	"conf_help_single_click": {
+		"message": "Un click simple abrirá un Popup o pestaña donde podremos Agregar o Modificar un marcador, y que se cerrará automáticamente al Guardar"
+	},
+	"conf_help_double_click": {
+		"message": "Un doble click en el icono de la extensión abrirá una nueva pestaña con tu cuenta Google Bookmarks, donde podrás Gestionar tus marcadores"
+	},
+	"conf_help_visual_guide_inactive": {
+		"message": "Con la Guía visual desactivada, siempre se mostrará este icono:"
+	},
+	"conf_help_visual_guide_inactive_star": {
+		"message": "Icono fijo, estés conectados o no, exista el marcador o no"
+	},
+	"conf_help_visual_guide_active": {
+		"message": "En cambio, si utilizas la Guía visual, verás en tu barra de marcadores estos iconos:"
+	},
+	"conf_help_visual_guide_active_disconnected": {
+		"message": "No estás conectado a tu cuenta de Google Bookmarks"
+	},
+	"conf_help_visual_guide_active_disconnected_click": {
+		"message": "Un Click para Autentificarte"
+	},
+	"conf_help_visual_guide_active_notfound": {
+		"message": "La URL no se encuentra en marcadores"
+	},
+	"conf_help_visual_guide_active_notfound_click": {
+		"message": "Un Click para Agregarla"
+	},
+	"conf_help_visual_guide_active_nolabels": {
+		"message": "La URL se encuentra en marcadores, sin etiquetas"
+	},
+	"conf_help_visual_guide_active_nolabels_click": {
+		"message": "Un Click para Editarla"
+	},
+	"conf_help_visual_guide_active_2labels": {
+		"message": "La URL se encuentra en marcadores, con dos etiquetas"
+	},
+	"conf_help_visual_guide_active_2labels_click": {
+		"message": "Un Click para Editarla"
+	},
+	"conf_help_visual_guide_animations": {
+		"message": "Si además activas las animaciones, el icono cambiará para llamar tu atención cuando haya cambios:"
+	},
+	"developed_by": {
+		"message": "Desarrollada por"
+	},
+	"dedicated_to": {
+		"message": "Dedicada a"
+	},
+	"dedicated_why": {
+		"message": "por más motivos de los que caben en este pie de página"
+	}
+}

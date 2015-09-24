@@ -1,0 +1,143 @@
+﻿{
+	"appName": {
+		"message": "KISS Google Bookmarks™"
+	},
+	"appDesc": {
+		"message": "Click simple Afegir o Modificar un marcador, doble click gestionar el teu compte Google Bookmarks. També pots assignar dreceras de teclat. (ALT+B y ALT+M per defecte). A més, l'extensió mostra si el marcador ja està afegit."
+	},
+	"link_login": {
+		"message": "Accedeixi al seu compte de Google Bookmarks"
+	},
+	"link_no_labels": {
+		"message": "¡ El marcador no té etiquetes !"
+	},
+	"link_labels": {
+		"message": "ETIQUETES:"
+	},
+	"link_no_title": {
+		"message": "¡ El marcador no té nom  !"
+	},
+	"link_title": {
+		"message": "NOM:"
+	},
+	"link_no_description": {
+		"message": "¡ El marcador no té notes !"
+	},
+	"link_description": {
+		"message": "NOTES:"
+	},
+	"link_edit": {
+		"message": "Modificar marcador"
+	},
+	"link_add": {
+		"message": "Afegir marcador"
+	},
+	"conf_shorcuts_title": {
+		"message": "Dreceres de teclat"
+	},
+	"conf_shorcuts_add": {
+		"message": "Drecera de teclat per Afegir marcador"
+	},
+	"conf_shorcuts_manage": {
+		"message": "Drecera de teclat per Gestionar marcadors"
+	},
+	"conf_shorcuts_info": {
+		"message": "Pot utilitzar com a modificadors [ ALT, CRTL, SHIFT, META ] i com a tecles, qualsevol de [ A-Z ] o [ 0-9 ] o alguna de les"
+	},
+	"conf_shorcuts_especial_keys": {
+		"message": "Tecles especials"
+	},
+	"conf_shorcuts_especial_keys_note_title": {
+		"message": "TECLES ESPECIALS"
+	},
+	"conf_window": {
+		"message": "Comportament de les finestres"
+	},
+	"conf_window_usepopup": {
+		"message": "Afegir marcador en un Popup en lloc de Pestanya"
+	},
+	"conf_magic": {
+		"message": "Automagia"
+	},
+	"conf_magic_use_magic": {
+		"message": "A l'afegir marcador, calcular i emplenar etiquetes i notes"
+	},
+	"conf_visual_guide": {
+		"message": "Guia visual"
+	},
+	"conf_visual_guide_show": {
+		"message": "Mostrar si la URL ja està a marcadors (més lent)"
+	},
+	"conf_visual_guide_animate": {
+		"message": "Utilitzar animacions amb la Guia Visual activa"
+	},
+	"conf_save_note": {
+		"message": "Asseguri's de guardar els canvis desprès de fer modificacions. Si canvia les dreceres del teclat haurà de recarregar les pàgines obertes per tal que funcionin, o bé reiniciar el navegador."
+	},
+	"conf_save_button": {
+		"message": "Guardar canvis"
+	},
+	"conf_close_button": {
+		"message": "Tancar sense guardar"
+	},
+	"conf_info_message": {
+		"message": "¡ Opcions guardades !"
+	},
+	"conf_help": {
+		"message": "Necessita ajuda?"
+	},
+	"conf_help_usage": {
+		"message": "L'utilització no pot ser mes senzilla:"
+	},
+	"conf_help_single_click": {
+		"message": "Un click simple obrirà un Popup o pestanya on podrem Afegir o Modificar un marcador, que es tancarà automàticament al Guardar"
+	},
+	"conf_help_double_click": {
+		"message": "Un doble click a la icona de l'extensió obrira una pestanya amb el teu compte Google Bookmarks, on podràs gestionar els teus marcadors"
+	},
+	"conf_help_visual_guide_inactive": {
+		"message": "Amb la Guía Visual desactivada apareixerà sempre aquesta icona:"
+	},
+	"conf_help_visual_guide_inactive_star": {
+		"message": "Icona fixa, estigui connectada o no, existeisqui el marcador o no"
+	},
+	"conf_help_visual_guide_active": {
+		"message": "En canvi, si utilitza la Guía Visual veurà a la seva barra de marcadors aquestes icones:"
+	},
+	"conf_help_visual_guide_active_disconnected": {
+		"message": "No està connectat al seu compte de Google Bookmarks"
+	},
+	"conf_help_visual_guide_active_disconnected_click": {
+		"message": "Un Click per autentificar-se"
+	},
+	"conf_help_visual_guide_active_notfound": {
+		"message": "La URL no es troba a marcadors"
+	},
+	"conf_help_visual_guide_active_notfound_click": {
+		"message": "Un Click per Afegir-la"
+	},
+	"conf_help_visual_guide_active_nolabels": {
+		"message": "La URL es troba a marcadors, sense etiqueta"
+	},
+	"conf_help_visual_guide_active_nolabels_click": {
+		"message": "Un Click per Editar-la"
+	},
+	"conf_help_visual_guide_active_2labels": {
+		"message": "La URL ja es troba a marcadors, amb dues etiquetes"
+	},
+	"conf_help_visual_guide_active_2labels_click": {
+		"message": "Un Click per Editar-la"
+	},
+	"conf_help_visual_guide_animations": {
+		"message": "si a més activa les animacions, la icona canviarà per tal de cridar la teva atenció quan hi haja canvis:"
+	},
+	"developed_by": {
+		"message": "Desenvolupat per"
+	},
+	"dedicated_to": {
+		"message": "Dedicat a"
+	},
+	"dedicated_why": {
+		"message": "per més motius dels que caben a este peu de pàgina"
+	}
+}
