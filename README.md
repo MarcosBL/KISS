@@ -1,4 +1,9 @@
-# ![KISS Google Bookmarks][1] KISS Google Bookmarks - Un gestor de Google Bookmarks
+# ![KISS Google Bookmarks][1] KISS Google Bookmarks
+
+Easy and convenient Google Bookmarks manager, published on the Chrome Web Store:  https://chrome.google.com/webstore/detail/kiss-google-bookmarks/ofknmheipmfmbnniboifabehbgjelbmb
+
+**If someone is interested, just drop an issue, and I'll translate this README, the extension itself already supports english locales.**
+
 
 El esquema de uso no puede ser más simple:
 
